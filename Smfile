@@ -1,0 +1,6 @@
+all {
+        %SET CPPC em++
+        %APPEND CPPFLAGS -s WASM=1 --no-entry -Wl,--demangle -Iinclude
+        %APPEND CPPFLAGS -Wno-dollar-in-identifier-extension
+        %CPPC test/test.js test/test.cc src/*.cc
+}

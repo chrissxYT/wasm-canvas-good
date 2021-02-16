@@ -1,0 +1,14 @@
+<html>
+        <head>
+                <title>Test page for wasm-canvas-good</title>
+                <script src='test.js'></script>
+                <script>
+                        Module._sine_chart("test1", 1000, 1000, "rgb(255, 100, 100)");
+                </script>
+        </head>
+        <body>
+                <p>This is above the canvas</p>
+                <canvas id='test1'></canvas>
+                <p>This is below the canvas</p>
+        </body>
+</html>
