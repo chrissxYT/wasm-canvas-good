@@ -2,8 +2,12 @@
         <head>
                 <title>Test page for wasm-canvas-good</title>
                 <script>
-                        var x = (await WebAssembly.instantiate(await (await fetch('test.wasm')).arrayBuffer()));
-                        x.instance.exports.sine_chart();
+                        async function updatechart() {
+                        const bytes = await (await fetch('/test.wasm')).arrayBuffer();
+                        const wasm = await WebAssembly.instantiate(bytes).instance;
+                        wasm.exports.sine_chart('test1', 100, 100, '#ff9999');
+                        }
+                        updatechart();
                 </script>
         </head>
         <body>
