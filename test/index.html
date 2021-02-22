@@ -1,9 +1,9 @@
 <html>
         <head>
                 <title>Test page for wasm-canvas-good</title>
-                <script src='test.js'></script>
                 <script>
-                        Module._sine_chart("test1", 1000, 1000, "rgb(255, 100, 100)");
+                        var x = (await WebAssembly.instantiate(await (await fetch('test.wasm')).arrayBuffer()));
+                        x.instance.exports.sine_chart();
                 </script>
         </head>
         <body>
