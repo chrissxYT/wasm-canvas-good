@@ -1,37 +1,37 @@
 #include <canvas.hh>
 #include <emscripten.h>
 
-canvas::canvas(std::string id) noexcept {
-        this->id = id;
-}
+canvas::canvas(const std::string id_) noexcept : id(id_) {}
 
 int canvas::width() const noexcept {
-        return EM_ASM_INT({ return document.getElementById($0).width; },
-                          id.c_str());
+        return EM_ASM_INT({
+                return document.getElementById(UTF8ToString($0)).width;
+        }, id.c_str());
 }
 
 int canvas::height() const noexcept {
-        return EM_ASM_INT({ return document.getElementById($0).height; },
-                          id.c_str());
+        return EM_ASM_INT({
+                return document.getElementById(UTF8ToString($0)).height;
+        }, id.c_str());
 }
 
-void canvas::set_scale(double x, double y) noexcept {
+void canvas::set_scale(const double x, const double y) noexcept {
         EM_ASM({
-                document.getElementById($0).getContext('2d')
+                document.getElementById(UTF8ToString($0)).getContext('2d')
                         .setTransform($1, 0, 0, $2, 0, 0);
         }, id.c_str(), x, y);
 }
 
-void canvas::set_fill_style(std::string fill_style) noexcept {
+void canvas::set_fill_style(const std::string fill_style) noexcept {
         EM_ASM({
-                document.getElementById($0).getContext('2d')
-                        .fillStyle = $1;
+                document.getElementById(UTF8ToString($0)).getContext('2d')
+                        .fillStyle = UTF8ToString($1);
         }, id.c_str(), fill_style.c_str());
 }
 
 void canvas::fill_rect(double x, double y, double w, double h) noexcept {
         EM_ASM({
-                document.getElementById($0).getContext('2d')
+                document.getElementById(UTF8ToString($0)).getContext('2d')
                         .fillRect($1, $2, $3, $4);
         }, id.c_str(), x, y, w, h);
 }

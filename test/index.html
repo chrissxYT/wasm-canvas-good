@@ -1,13 +1,9 @@
 <html>
         <head>
                 <title>Test page for wasm-canvas-good</title>
+                <script src='test.js'></script>
                 <script>
-                        async function updatechart() {
-                        const bytes = await (await fetch('/test.wasm')).arrayBuffer();
-                        const wasm = await WebAssembly.instantiate(bytes).instance;
-                        wasm.exports.sine_chart('test1', 100, 100, '#ff9999');
-                        }
-                        updatechart();
+                        Module._sine_chart('test1', 100, 100, '#ff9999');
                 </script>
         </head>
         <body>
